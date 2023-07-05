@@ -1,5 +1,6 @@
 package tw.org.iii.tonyclass;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -20,11 +21,30 @@ public class WinFrame extends JFrame {
 	private JButton connectIP,start,auto,clear,exit;
 	
 	private void addButton(String key,JButton button,boolean flag) {
-		this.addButton(key, button ,true);
 		if(! buttons.containsKey(key)) {
-			
+			buttons.put(key, new ArrayList<JButton>());
 		}
+		
+		List<JButton> buttons = this.buttons.get(key);
+		if(!buttons.contains(button)) {
+			buttons.add(button);
+			if(flag) {
+				add(button);
+			}
+		}
+		
 	}
+	
+    private void addButton(String key, JButton button) {
+        this.addButton(key, button, true);
+    }
+	
+	
+	private List<JButton> getButton(String key) {
+        if (! buttons.containsKey(key))
+            buttons.put(key, new ArrayList<JButton>());
+        return buttons.get(key);
+    }
 	
 	
 	
@@ -45,10 +65,10 @@ public class WinFrame extends JFrame {
 		jspR = new JScrollPane(jtaR);
 		jspD = new JScrollPane(jtaD);
 		connectIP = new JButton();
-		start = new JButton();
-		auto = new JButton();
-		clear = new JButton();
-		exit = new JButton();
+		start = new JButton("開始");
+		auto = new JButton("自動選號");
+		clear = new JButton("重新選號");
+		exit = new JButton("離開");
 		
         jtfName.setBounds(10, 10, 90, 30);
         jtfName.setEditable(false);
@@ -76,22 +96,24 @@ public class WinFrame extends JFrame {
         
         
         start.setBounds(30,360,240,60);
-        start.setText("開始");
-        add(start);
+        addButton("start", start);
+        addButton("menu", start,false);
         
         auto.setBounds(280,360,240,60);
-        auto.setText("自動選號");
-        add(auto);
+        addButton("auto", auto);
+        addButton("menu", auto,false);
         
         clear.setBounds(30,430,240,60);
-        clear.setText("重新選號");
-        add(clear);
+        addButton("clear", clear);
+        addButton("menu", clear,false);
 		
         exit.setBounds(280,430,240,60);
-        exit.setText("離開");
-        add(exit);
+        addButton("exit", exit);
+        addButton("menu", exit,false);
         
-        
+        for (JButton menu : this.getButton("menu")) {
+            menu.setEnabled(false);
+        }
 
 
 	}
