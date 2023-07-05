@@ -1,7 +1,8 @@
 package tw.org.iii.tonyclass;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -10,11 +11,20 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
 public class WinFrame extends JFrame {
+	private Map<String, List<JButton>> buttons = new HashMap<String,List<JButton>>();
+	
 	private JTextField jtfRoom,jtfName,jtfIP;
 	private JTextArea jtaR,jtaD;
 	private JScrollPane jspR,jspD;
 	private JButton[] bingo;
 	private JButton connectIP,start,auto,clear,exit;
+	
+	private void addButton(String key,JButton button,boolean flag) {
+		this.addButton(key, button ,true);
+		if(! buttons.containsKey(key)) {
+			
+		}
+	}
 	
 	
 	
@@ -32,8 +42,8 @@ public class WinFrame extends JFrame {
 		jtfIP = new JTextField();
 		jtaR = new JTextArea();
 		jtaD = new JTextArea();
-		jspR = new JScrollPane();
-		jspD = new JScrollPane();
+		jspR = new JScrollPane(jtaR);
+		jspD = new JScrollPane(jtaD);
 		connectIP = new JButton();
 		start = new JButton();
 		auto = new JButton();
