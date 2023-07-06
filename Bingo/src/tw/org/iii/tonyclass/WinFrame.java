@@ -1,5 +1,9 @@
 package tw.org.iii.tonyclass;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -10,6 +14,7 @@ import javax.swing.JFrame;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.swing.SwingUtilities;
 
 public class WinFrame extends JFrame {
 	private Map<String, List<JButton>> buttons = new HashMap<String,List<JButton>>();
@@ -19,7 +24,19 @@ public class WinFrame extends JFrame {
 	private JScrollPane jspR,jspD;
 	private JButton[] bingo;
 	private JButton connectIP,start,auto,clear,exit;
+	private boolean room=false,ready=false,startF=false,yourturn=false,roomReady=false;
+	private int[] nums;
+	private int num = 0;
+	private int width = 0;
+	private int height = 0;
 	
+	
+//	public  ClientFrame() {
+//		regElement();
+//		initComp();
+//	}
+
+
 	private void addButton(String key,JButton button,boolean flag) {
 		if(! buttons.containsKey(key)) {
 			buttons.put(key, new ArrayList<JButton>());
@@ -35,9 +52,6 @@ public class WinFrame extends JFrame {
 		
 	}
 	
-    private void addButton(String key, JButton button) {
-        this.addButton(key, button, true);
-    }
 	
 	
 	private List<JButton> getButton(String key) {
@@ -49,8 +63,8 @@ public class WinFrame extends JFrame {
 	
 	
 	
-	public WinFrame() {
-		super("BinGo");
+	public void regElement() {
+		setTitle("BinGo");
 		setLayout(null);
 		setBounds(100,100,716, 535);
 		setResizable(false); //視窗無法調整大小
@@ -88,7 +102,7 @@ public class WinFrame extends JFrame {
         connectIP.setText("連接");
         add(connectIP);
         
-        jspR.setBounds(500, 60, 140, 330);
+        jspR.setBounds(550, 60, 140, 330);
         add(jspR);
         
         jspD.setBounds(550,410,140,80);
@@ -96,26 +110,138 @@ public class WinFrame extends JFrame {
         
         
         start.setBounds(30,360,240,60);
-        addButton("start", start);
+        addButton("start", start,true);
         addButton("menu", start,false);
         
         auto.setBounds(280,360,240,60);
-        addButton("auto", auto);
+        addButton("auto", auto,true);
         addButton("menu", auto,false);
         
         clear.setBounds(30,430,240,60);
-        addButton("clear", clear);
+        addButton("clear", clear,true);
         addButton("menu", clear,false);
 		
         exit.setBounds(280,430,240,60);
-        addButton("exit", exit);
+        addButton("exit", exit,true);
         addButton("menu", exit,false);
         
         for (JButton menu : this.getButton("menu")) {
             menu.setEnabled(false);
         }
+        
+        SwingUtilities.updateComponentTreeUI(this);
 
-
+	}
+	
+	private void initComp() {
+		start.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				
+				
+			}
+		});
+		
+		auto.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+		});
+		
+		clear.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+		});
+		
+		exit.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+		});
+		
+		jtaD.addKeyListener(new KeyListener() {
+			
+			boolean flagS = false;
+			boolean flagE = false;
+			
+			
+			@Override
+			public void keyTyped(KeyEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			//釋放按鈕 未完成
+			public void keyReleased(KeyEvent e) {
+				if (flagE) { //按下enter
+					if(flagS) { //強迫換行
+						jtaD.setText(jtaD.getText()+"\r\n");
+					}else { //送出
+						send
+					}
+				}
+				if ()
+				
+			}
+			
+			@Override
+			//按下按鈕
+			public void keyPressed(KeyEvent e) {
+				if (e.getKeyCode()==KeyEvent.VK_ENTER) {
+					flagE = true;
+				}
+				if (e.getKeyCode() == KeyEvent.VK_SHIFT) {
+					flagS = true;
+				}
+			}
+		});
+		
+		
+	}
+	
+	private void sendChat(String msg) {
+		
+	}
+	
+	
+	
+	
+	private void checkProgress() {
+		if(room) {
+			if (startF) {
+				for (JButton menu : this.getButton("menu")) {
+					menu.setEnabled(false);
+				}
+			}else {
+				for(JButton menu : this.getButton("munu")) {
+					menu.setEnabled(true);
+				}
+			}
+			
+		}
+	}
+	
+	
+	
+	private void start() {
+		if (room) {
+			if(ready) {
+				
+			}
+			
+		}
 	}
 
 	
@@ -125,9 +251,9 @@ public class WinFrame extends JFrame {
 	
 	
 	
-	public static void main(String[] args) {
-		new WinFrame();
-
-	}
+//	public static void main(String[] args) {
+//		new WinFrame();
+//
+//	}
 
 }
