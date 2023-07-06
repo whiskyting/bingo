@@ -27,8 +27,8 @@ public class WinFrame extends JFrame {
 	private boolean room=false,ready=false,startF=false,yourturn=false,roomReady=false;
 	private int[] nums;
 	private int num = 0;
-	private int width = 0;
-	private int height = 0;
+	private int width = -1;
+	private int height = -1;
 	private String roomID = "";
 	
 	
