@@ -29,6 +29,7 @@ public class WinFrame extends JFrame {
 	private int num = 0;
 	private int width = 0;
 	private int height = 0;
+	private String roomID = "";
 	
 	
 //	public  ClientFrame() {
@@ -133,12 +134,23 @@ public class WinFrame extends JFrame {
 
 	}
 	
+	//遊戲運行初始化
 	private void initComp() {
+		connectIP.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+		});
+		
 		start.addActionListener(new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				
+				start();
+				checkProgress();
 				
 			}
 		});
@@ -147,7 +159,8 @@ public class WinFrame extends JFrame {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
+				auto();
+				checkProgress();
 				
 			}
 		});
@@ -156,7 +169,8 @@ public class WinFrame extends JFrame {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
+				clear();
+				checkProgress();
 				
 			}
 		});
@@ -165,7 +179,8 @@ public class WinFrame extends JFrame {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
+				exit();
+				checkProgress();
 				
 			}
 		});
@@ -177,8 +192,8 @@ public class WinFrame extends JFrame {
 			
 			
 			@Override
+			//按著不做功能
 			public void keyTyped(KeyEvent e) {
-				// TODO Auto-generated method stub
 				
 			}
 			
@@ -189,10 +204,10 @@ public class WinFrame extends JFrame {
 					if(flagS) { //強迫換行
 						jtaD.setText(jtaD.getText()+"\r\n");
 					}else { //送出
-						send
+//						send
 					}
 				}
-				if ()
+//				if ()
 				
 			}
 			
@@ -210,6 +225,8 @@ public class WinFrame extends JFrame {
 		
 		
 	}
+	
+	
 	
 	private void sendChat(String msg) {
 		
@@ -234,7 +251,7 @@ public class WinFrame extends JFrame {
 	}
 	
 	
-	
+	//各按鈕功能
 	private void start() {
 		if (room) {
 			if(ready) {
@@ -242,6 +259,18 @@ public class WinFrame extends JFrame {
 			}
 			
 		}
+	}
+	
+	private void auto() {
+		
+	}
+	
+	private void clear() {
+		
+	}
+	
+	private void exit() {
+		
 	}
 
 	
@@ -251,9 +280,10 @@ public class WinFrame extends JFrame {
 	
 	
 	
-//	public static void main(String[] args) {
-//		new WinFrame();
-//
-//	}
+	public static void main(String[] args) {
+		WinFrame fwk =	new WinFrame();
+		fwk.regElement();
+		
+	}
 
 }

@@ -27,5 +27,19 @@ public class Client {
 		
 	}
 	
+	private void sendData(PrintStream writer) {
+		if (this.writer == null) {
+			return;
+			
+		}
+		
+
+	} 
+	
+	public void connect(String ip) {
+		
+		
+	}
+	
 //	public class IncomingReader
 }
