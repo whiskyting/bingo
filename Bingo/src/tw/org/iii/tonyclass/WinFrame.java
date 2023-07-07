@@ -1,5 +1,6 @@
 package tw.org.iii.tonyclass;
 
+import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
@@ -16,6 +17,7 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
 
+@SuppressWarnings("serial")
 public class WinFrame extends JFrame {
 	private Map<String, List<JButton>> buttons = new HashMap<String,List<JButton>>();
 	
@@ -24,12 +26,13 @@ public class WinFrame extends JFrame {
 	private JScrollPane jspR,jspD;
 	private JButton[] bingo;
 	private JButton connectIP,start,auto,clear,exit;
-	private boolean room=false,ready=false,startF=false,yourturn=false,roomReady=false;
-	private int[] nums;
-	private int num = 0;
-	private int width = -1;
-	private int height = -1;
-	private String roomID = "";
+	private boolean room=false,startF=false;
+//			,ready=false,yourturn=false,roomReady=false;
+//	private int[] nums;
+//	private int num = 0;
+//	private int width = -1;
+//	private int height = -1;
+//	private String roomID = "";
 	
 	
 //	public  ClientFrame() {
@@ -37,8 +40,23 @@ public class WinFrame extends JFrame {
 //		initComp();
 //	}
 
-
-	private void addButton(String key,JButton button,boolean flag) {
+//  有menu版本
+//	private void addButton(String key,JButton button,boolean flag) {
+//		if(! buttons.containsKey(key)) {
+//			buttons.put(key, new ArrayList<JButton>());
+//		}
+//		
+//		List<JButton> buttons = this.buttons.get(key);
+//		if(!buttons.contains(button)) {
+//			buttons.add(button);
+//			if(flag) {
+//				add(button);
+//			}
+//		}
+//		
+//	}
+	
+	private void addButton(String key,JButton button) {
 		if(! buttons.containsKey(key)) {
 			buttons.put(key, new ArrayList<JButton>());
 		}
@@ -46,9 +64,8 @@ public class WinFrame extends JFrame {
 		List<JButton> buttons = this.buttons.get(key);
 		if(!buttons.contains(button)) {
 			buttons.add(button);
-			if(flag) {
-				add(button);
-			}
+			add(button);
+			
 		}
 		
 	}
@@ -77,8 +94,8 @@ public class WinFrame extends JFrame {
 		jtfIP = new JTextField();
 		jtaR = new JTextArea();
 		jtaD = new JTextArea();
-		jspR = new JScrollPane(jtaR);
-		jspD = new JScrollPane(jtaD);
+//		jspR = new JScrollPane();
+//		jspD = new JScrollPane();
 		connectIP = new JButton();
 		start = new JButton("開始");
 		auto = new JButton("自動選號");
@@ -103,34 +120,37 @@ public class WinFrame extends JFrame {
         connectIP.setText("連接");
         add(connectIP);
         
-        jspR.setBounds(550, 60, 140, 330);
-        add(jspR);
-        
-        jspD.setBounds(550,410,140,80);
-        add(jspD);
+//        jspR.setBounds(550, 60, 140, 330);
+//        add(jspR);
+//        
+//        jspD.setBounds(550,410,140,80);
+//        add(jspD);
         
         
         start.setBounds(30,360,240,60);
-        addButton("start", start,true);
-        addButton("menu", start,false);
+        addButton("start", start);
+        
+//        addButton("menu", start,false);
         
         auto.setBounds(280,360,240,60);
-        addButton("auto", auto,true);
-        addButton("menu", auto,false);
+        addButton("auto", auto);
+//        addButton("menu", auto,false);
         
         clear.setBounds(30,430,240,60);
-        addButton("clear", clear,true);
-        addButton("menu", clear,false);
+        addButton("clear", clear);
+//        addButton("menu", clear,false);
 		
         exit.setBounds(280,430,240,60);
-        addButton("exit", exit,true);
-        addButton("menu", exit,false);
+        addButton("exit", exit);
+//        addButton("menu", exit,false);
         
-        for (JButton menu : this.getButton("menu")) {
-            menu.setEnabled(false);
-        }
+//        for (JButton menu : this.getButton("menu")) {
+//            menu.setEnabled(false);
+//        }
         
         SwingUtilities.updateComponentTreeUI(this);
+        
+        
 
 	}
 	
@@ -149,6 +169,7 @@ public class WinFrame extends JFrame {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
+//				System.out.println(e);
 				start();
 				checkProgress();
 				
@@ -180,7 +201,7 @@ public class WinFrame extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				exit();
-				checkProgress();
+//				checkProgress();
 				
 			}
 		});
@@ -228,9 +249,9 @@ public class WinFrame extends JFrame {
 	
 	
 	
-	private void sendChat(String msg) {
-		
-	}
+//	private void sendChat(String msg) {
+//		
+//	}
 	
 	
 	
@@ -253,24 +274,81 @@ public class WinFrame extends JFrame {
 	
 	//各按鈕功能
 	private void start() {
-		if (room) {
-			if(ready) {
+		for(JButton start : getButton("start")) {
+			start.setText("準備");
+		}
+		
+//		System.out.println("text");
+		int w = 450/5;
+		int h = 250/5;
+		this.bingo = new JButton[5*5];
+		for (int x=0 ; x<5;x++) {
+			for(int y=0;y<5;y++) {
+				JButton bingo = new JButton();
+				bingo.setBounds(30+x*(w+10), 60+y*(h+10), w, h);
+				addButton("bingo", bingo);
+				this.bingo[y*5+x] = bingo;
+
+				bingo.addActionListener(new ActionListener() {
+
+					public void actionPerformed(ActionEvent e) {
+						WinFrame.this.bingo[10].setBackground(Color.pink);
+						WinFrame.this.bingo[10].setText(Integer.toString(1));
+						
+					}
+				});
+			}
+		}
+		repaint();
+		
+		
+		
+	}
+	
+	
+	
+	private void auto() {
+		boolean isRepeat;
+		int[] ButtonNumber = new int[25];
+		int n;
+		
+		for(int i=0 ; i<25;i++) {
+			do {
 				
+				n = (int)(Math.random()*25);
+				//檢查機制
+				isRepeat = false;
+				for (int j=0; j<i; j++) {
+					if (ButtonNumber[j] == n) {
+						isRepeat = true;
+						break;
+					}
+				}
+				
+			}while(isRepeat);
+			ButtonNumber[i] = n;
+			
+//			System.out.println(n);
+//			System.out.println(bingo[n]);
+			if (bingo[n].getBackground() != Color.pink) {
+				bingo[n].setText(Integer.toString(i+1));
+	            bingo[n].setBackground(Color.pink);
 			}
 			
 		}
-	}
-	
-	private void auto() {
+		
 		
 	}
 	
 	private void clear() {
-		
+		for (JButton bingo : getButton("bingo")) {
+            bingo.setText("");
+            bingo.setBackground(null);
+		}
 	}
 	
 	private void exit() {
-		
+		System.exit(0);
 	}
 
 	
@@ -283,6 +361,8 @@ public class WinFrame extends JFrame {
 	public static void main(String[] args) {
 		WinFrame fwk =	new WinFrame();
 		fwk.regElement();
+		fwk.initComp();
+		
 		
 	}
 
