@@ -323,7 +323,7 @@ private Map<String, List<JButton>> buttons = new HashMap<String,List<JButton>>()
 				bingo[pos].setBackground(Color.pink);
 				bingo[pos].setText(Integer.toString(num++));
 			}
-			if (num == 26 && auto.isEnabled()) {
+			if (num == 26 && auto.isEnabled()&&!start.isEnabled()) {
 				start.setEnabled(true);
 				
 			}
