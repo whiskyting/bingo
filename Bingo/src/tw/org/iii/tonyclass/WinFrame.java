@@ -3,6 +3,7 @@ package tw.org.iii.tonyclass;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -434,10 +435,14 @@ private Map<String, List<JButton>> buttons = new HashMap<String,List<JButton>>()
 			bingo[20].getBackground()== Color.red ) {
 					line++;
 				}
-		ImageIcon picture = new ImageIcon("src/tw/org/iii/tonyclass/bingo.png");
+//		ImageIcon picture = new ImageIcon("src/tw/org/iii/tonyclass/bingo.png");
+//		ImageIcon picture = new ImageIcon(getClass().getClassLoader().getResource("bingo.png"));
+		URL imgURL = WinFrame.class.getResource("bingo.png");
+		ImageIcon picture = new ImageIcon(imgURL);
 		
 		
-		if (line == 3) {
+		
+		if (line >= 3) {
 			JOptionPane.showConfirmDialog(null, "", "BinGo", JOptionPane.DEFAULT_OPTION,JOptionPane.QUESTION_MESSAGE,picture);
 		}
 		
